@@ -64,14 +64,77 @@ namespace MpdcActivityIndicatorView.MpdcActivityIndicatorView
             switch(_indicatorShape)
             {
                 case MpdcActivityIndicatorShape.Circle:
+                    path.AddArc(new CGPoint(size.Width / 2, size.Height / 2)
+                                , size.Width / 2
+                                , 0
+                                , (float)(2 * Math.PI)
+                                , false);
+                    layer.FillColor = color.CGColor;
                     break;
                 case MpdcActivityIndicatorShape.CircleSemi:
+                    path.AddArc(new CGPoint(size.Width / 2, size.Height / 2)
+                             , size.Width / 2
+                                , (float)(-Math.PI / 6)
+                             , (float)(-5 * Math.PI / 6)
+                             , false);
+
+                    path.ClosePath();
+                    layer.FillColor = color.CGColor;
                     break;
                 case MpdcActivityIndicatorShape.Ring:
+                    path.AddArc(new CGPoint(size.Width / 2, size.Height / 2)
+                             , size.Width / 2
+                             , 0
+                             , (float)(2 * Math.PI)
+                             , false);
+
+                    layer.FillColor = null;
+                    layer.StrokeColor = color.CGColor;
+                    layer.LineWidth = lineWidth;
                     break;
                 case MpdcActivityIndicatorShape.RingTwoHalfVertical:
+                    path.AddArc(new CGPoint(size.Width / 2, size.Height / 2)
+                             , size.Width / 2
+                                , (float)(-3 * Math.PI / 4)
+                             , (float)(-Math.PI / 4)
+                                , true);
+
+                    path.MoveTo(
+                        new CGPoint(size.Width/2 - size.Width/2 * Math.Cos((float)(Math.PI / 4)),
+                                    size.Height/2 + size.Height/2 * Math.Sin((float)(Math.PI /4)))
+                    );
+
+                    path.AddArc(new CGPoint(size.Width / 2, size.Height / 2),
+                                size.Width / 2,
+                                (float)(-5 * Math.PI / 4),
+                                (float)(-7 * Math.PI / 4),
+                                false);
+
+                    layer.FillColor = null;
+                    layer.StrokeColor = color.CGColor;
+                    layer.LineWidth = lineWidth;
                     break;
                 case MpdcActivityIndicatorShape.RingTwoHalfHorizontal:
+                    path.AddArc(new CGPoint(size.Width / 2, size.Height / 2)
+                            , size.Width / 2
+                               , (float)(3 * Math.PI / 4)
+                            , (float)(5 * Math.PI / 4)
+                               , true);
+
+                    path.MoveTo(
+                        new CGPoint(size.Width / 2 + size.Width / 2 * Math.Cos((float)(Math.PI / 4)),
+                                    size.Height / 2 - size.Height / 2 * Math.Sin((float)(Math.PI / 4)))
+                    );
+
+                    path.AddArc(new CGPoint(size.Width / 2, size.Height / 2),
+                                size.Width / 2,
+                                (float)(-Math.PI / 4),
+                                (float)(Math.PI / 4),
+                                true);
+
+                    layer.FillColor = null;
+                    layer.StrokeColor = color.CGColor;
+                    layer.LineWidth = lineWidth;
                     break;
                 case MpdcActivityIndicatorShape.RingThirdFour:
                     break;
