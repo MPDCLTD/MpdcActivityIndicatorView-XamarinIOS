@@ -61,7 +61,7 @@ namespace MpdcActivityIndicatorView.MpdcActivityIndicatorView
             UIBezierPath path = new UIBezierPath();
             float lineWidth = 2;
 
-            switch(_indicatorShape)
+            switch (_indicatorShape)
             {
                 case MpdcActivityIndicatorShape.Circle:
                     path.AddArc(new CGPoint(size.Width / 2, size.Height / 2)
@@ -100,8 +100,8 @@ namespace MpdcActivityIndicatorView.MpdcActivityIndicatorView
                                 , true);
 
                     path.MoveTo(
-                        new CGPoint(size.Width/2 - size.Width/2 * Math.Cos((float)(Math.PI / 4)),
-                                    size.Height/2 + size.Height/2 * Math.Sin((float)(Math.PI /4)))
+                        new CGPoint(size.Width / 2 - size.Width / 2 * Math.Cos((float)(Math.PI / 4)),
+                                    size.Height / 2 + size.Height / 2 * Math.Sin((float)(Math.PI / 4)))
                     );
 
                     path.AddArc(new CGPoint(size.Width / 2, size.Height / 2),
@@ -137,16 +137,59 @@ namespace MpdcActivityIndicatorView.MpdcActivityIndicatorView
                     layer.LineWidth = lineWidth;
                     break;
                 case MpdcActivityIndicatorShape.RingThirdFour:
+                    path.AddArc(new CGPoint(size.Width / 2, size.Height / 2),
+                             size.Width / 2,
+                             (float)(-3 * Math.PI / 4),
+                             (float)(-Math.PI / 4),
+                                false);
+
+                    layer.FillColor = null;
+                    layer.StrokeColor = color.CGColor;
+                    layer.LineWidth = 2;
                     break;
                 case MpdcActivityIndicatorShape.Rectangle:
+                    path.MoveTo(new CGPoint(0, 0));
+                    path.AddLineTo(new CGPoint(size.Width, 0));
+                    path.AddLineTo(new CGPoint(size.Width, size.Height));
+                    path.AddLineTo(new CGPoint(0, size.Height));
+                    layer.FillColor = color.CGColor;
                     break;
                 case MpdcActivityIndicatorShape.Triangle:
+                    var offSet = size.Height / 4;
+
+                    path.MoveTo(new CGPoint(0, size.Height - offSet));
+                    path.AddLineTo(new CGPoint(size.Width / 2, size.Height / 2 - offSet));
+                    path.AddLineTo(new CGPoint(size.Width, size.Height));
+                    path.AddLineTo(new CGPoint(size.Width, size.Height - offSet));
+                    path.ClosePath();
+
+                    layer.FillColor = color.CGColor;
                     break;
                 case MpdcActivityIndicatorShape.Line:
+                    path = UIBezierPath.FromRoundedRect(new CGRect(0, 0, size.Width / 2, size.Height / 2), size.Width / 2);
+                    layer.FillColor = color.CGColor;
                     break;
                 case MpdcActivityIndicatorShape.Pacman:
+                    path.AddArc(new CGPoint(size.Width / 2, size.Height / 2),
+                             size.Width / 4,
+                             0,
+                                (float)(2 * Math.PI),
+                                true);
+
+                    layer.FillColor = null;
+                    layer.StrokeColor = color.CGColor;
+                    layer.LineWidth = 2;
                     break;
                 case MpdcActivityIndicatorShape.Stroke:
+                    path.AddArc(new CGPoint(size.Width / 2, size.Height / 2),
+                             size.Width / 2,
+                                (float)-(Math.PI / 2),
+                                (float)(Math.PI + Math.PI /2),
+                                true);
+
+                    layer.FillColor = null;
+                    layer.StrokeColor = color.CGColor;
+                    layer.LineWidth = 2;
                     break;
             }
 
